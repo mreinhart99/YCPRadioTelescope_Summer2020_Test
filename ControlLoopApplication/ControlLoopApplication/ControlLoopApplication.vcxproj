@@ -152,6 +152,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ControlLoopApplication.cpp" />
+    <ClCompile Include="Ticker.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Ticker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

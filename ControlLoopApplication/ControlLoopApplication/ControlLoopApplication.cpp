@@ -1,20 +1,65 @@
-// ControlLoopApplication.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
 
 #include <iostream>
+#include "Ticker.h"
+
+bool AccelEventFlag = false;
+bool AzimuthEventFlag = false;
+bool ElevationEventFlag = false;
+bool TempEventFlag = false;
+
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	Timer::Ticker t(1000); // A timer ticking every second
+
+	t.set_max_tick(30); // Set ticker to reset at 30 secconds
+
+	t.start(); // Start ticker
+
+    // This is a super loop that check evnet flags and uses a ticker event to set other event flags
+	while (true) {
+
+		int NumTicks = t.get_tick();
+		if (t.updated()) {
+			
+			std::cout << NumTicks << std::endl; // Printing the current tick
+
+			if (NumTicks == 1)
+				AccelEventFlag = true;
+
+			if (NumTicks == 10)
+				AzimuthEventFlag = true;
+
+			if (NumTicks == 15)
+				ElevationEventFlag = true;
+
+			if (NumTicks == 25)
+				TempEventFlag = true;
+
+			// Are accelerometers ready to be read
+			if (AccelEventFlag) {
+				AccelEventFlag = false;
+				std::cout << "Hello World from the Accelerometers\n";
+			}
+
+			// Is aximuth encoder ready to be read
+			if (AzimuthEventFlag) {
+				AzimuthEventFlag = false;
+				std::cout << "Hello World from the Aximuth Encoder\n";
+			}
+
+			// Is elevation encoder ready to be read
+			if (ElevationEventFlag) {
+				ElevationEventFlag = false;
+				std::cout << "Hello World from the Elevation Encoder\n";
+			}
+
+			// Are temps ready to be read
+			if (TempEventFlag) {
+				TempEventFlag = false;
+				std::cout << "Hello World from the Temperature Sensors\n";
+			}
+		}
+	}
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
