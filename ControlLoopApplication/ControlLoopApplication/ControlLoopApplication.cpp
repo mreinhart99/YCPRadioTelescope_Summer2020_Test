@@ -22,7 +22,7 @@ int main()
 		int NumTicks = t.get_tick();
 		if (t.updated()) {
 			
-			//std::cout << NumTicks << std::endl; // Printing the current tick
+			std::cout << NumTicks << std::endl; // Printing the current tick
 
 			if (NumTicks == 1)
 				AccelEventFlag = true;
